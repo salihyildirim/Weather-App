@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'background_decoration.dart';
 
 class AdditionalInformation {
-  final double? wind;
-  final int? humidity;
-  final int? pressure;
-  final double? feels_like;
+  double? wind;
+  int? humidity;
+  int? pressure;
+  double? feels_like;
 
   AdditionalInformation(
       {this.wind, this.humidity, this.pressure, this.feels_like});
@@ -21,25 +21,25 @@ class AdditionalInformation {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('$wind', style: StilOfText().titleStyle()),
+            Text('Wind :', style: StilOfText().titleStyle()),
             Text(
-              '15',
+              '${wind?.round()}',
               style: StilOfText().valueStlye(),
             ),
-            Text('$humidity', style: StilOfText().titleStyle()),
-            Text('45', style: StilOfText().valueStlye())
+            Text('Humditiy :', style: StilOfText().titleStyle()),
+            Text('$humidity', style: StilOfText().valueStlye())
           ],
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '$pressure',
+              'Pressure :',
               style: StilOfText().titleStyle(),
             ),
-            Text('1100', style: StilOfText().valueStlye()),
-            Text('$feels_like', style: StilOfText().titleStyle()),
-            Text('25', style: StilOfText().valueStlye())
+            Text('$pressure', style: StilOfText().valueStlye()),
+            Text('Feels Like :', style: StilOfText().titleStyle()),
+            Text('$feels_like', style: StilOfText().valueStlye())
           ],
         )
       ],

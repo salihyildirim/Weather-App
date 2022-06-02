@@ -16,15 +16,29 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String sehir = 'Ankara';
+  String sehir = 'Dallas';
   double sicaklik = 20.0;
   var response;
+  double? wind;
+  int? humidity;
+  int? pressure;
+  double? feels_like;
 
   @override
   Future<void> getData() async {
     response = await http.get(
         'https://api.openweathermap.org/data/2.5/weather?q=$sehir&appid=04643ff1c678061b7bc3881ccafbe63a&units=metric');
     sicaklik = jsonDecode(response.body)['main']['temp'];
+    wind = jsonDecode(response.body)['wind']['speed'];
+    humidity = jsonDecode(response.body)['main']['humidity'];
+    pressure = jsonDecode(response.body)['main']['pressure'];
+    feels_like = jsonDecode(response.body)['main']['feels_like'];
+  }
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
   }
 
   @override
@@ -37,41 +51,52 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MaterialButton(
-                  child: Text('Button'),
-                  onPressed: () async {
-                    await getData();
-                    print('$sicaklik');
-                  },
-                ),
-                Text(
-                  'dasdasd',
-                  style: StilOfText().titleStyle(),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '$sehir',
-                      style: StilOfText().valueStlye(),
+                Expanded(
+                  flex: 1,
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                    child: Text(
+                      '${sicaklik.round()}',
+                      style: StilOfText().titleStyle(),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.search),
-                      onPressed: () async {
-                        sehir = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SearchPage(),
-                          ),
-                        );
-                        setState(() {
-                          sehir = sehir;
-                        });
-                      },
-                    )
-                  ],
+                  ),
                 ),
-                AdditionalInformation().Ekbilgiler(),
+                Expanded(
+                  flex: 3,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '$sehir',
+                        style: StilOfText().titleStyle(),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.search),
+                        onPressed: () async {
+                          sehir = await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SearchPage(),
+                            ),
+                          );
+                          setState(() {
+                            sehir = sehir;
+                            getData();
+                          });
+                        },
+                      )
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 4,
+                  child: AdditionalInformation(
+                          wind: wind,
+                          pressure: pressure,
+                          humidity: humidity,
+                          feels_like: feels_like)
+                      .Ekbilgiler(),
+                ),
               ],
             ),
           ),
