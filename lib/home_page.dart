@@ -7,6 +7,7 @@ import 'package:weatherapp/search_page.dart';
 
 import 'additional_information.dart';
 import 'background_decoration.dart';
+import "string_extension.dart";
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -47,58 +48,53 @@ class _HomePageState extends State<HomePage> {
         decoration: BackGroundDecoration(resim: 'c').getBackGround(),
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                    child: Text(
-                      '${sicaklik.round()}',
-                      style: StilOfText().titleStyle(),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                '${sicaklik.round()}°C',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 50,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '$sehir'.capitalize(),
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 35,
                     ),
                   ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '$sehir',
-                        style: StilOfText().titleStyle(),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.search),
-                        onPressed: () async {
-                          sehir = await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SearchPage(),
-                            ),
-                          );
-                          setState(() {
-                            sehir = sehir;
-                            getData();
-                          });
-                        },
-                      )
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: AdditionalInformation(
-                          wind: wind,
-                          pressure: pressure,
-                          humidity: humidity,
-                          feels_like: feels_like)
-                      .Ekbilgiler(),
-                ),
-              ],
-            ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.search,
+                      size: 35,
+                    ),
+                    onPressed: () async {
+                      sehir = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchPage(),
+                        ),
+                      );
+                      setState(() {
+                        sehir = sehir;
+                        getData();
+                      });
+                    },
+                  )
+                ],
+              ),
+              AdditionalInformation(
+                      wind: wind,
+                      pressure: pressure,
+                      humidity: humidity,
+                      feels_like: feels_like)
+                  .Ekbilgiler(),
+            ],
           ),
         ));
   }

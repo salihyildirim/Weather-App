@@ -14,34 +14,62 @@ class AdditionalInformation {
   Column Ekbilgiler() {
     return Column(
       children: [
-        Text(
-          'Additional Information',
-          style: StilOfText().titleStyle(),
+        SizedBox(
+          height: 50,
         ),
-        Row(
+        Text(
+          'Additional Information :',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 30,
+            decoration: TextDecoration.underline,
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Wind :', style: StilOfText().titleStyle()),
+            Text(
+              'Wind ',
+              style: StilOfText().titleStyle(),
+            ),
+            SizedBox(
+              width: 5,
+            ),
             Text(
               '${wind?.round()}',
               style: StilOfText().valueStlye(),
             ),
-            Text('Humditiy :', style: StilOfText().titleStyle()),
-            Text('$humidity', style: StilOfText().valueStlye())
-          ],
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+            SizedBox(
+              width: 15,
+            ),
             Text(
-              'Pressure :',
+              'Pressure ',
               style: StilOfText().titleStyle(),
             ),
+            SizedBox(
+              width: 5,
+            ),
             Text('$pressure', style: StilOfText().valueStlye()),
-            Text('Feels Like :', style: StilOfText().titleStyle()),
+          ],
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Humditiy ', style: StilOfText().titleStyle()),
+            SizedBox(
+              width: 5,
+            ),
+            Text('$humidity', style: StilOfText().valueStlye()),
+            Text('Feels Like ', style: StilOfText().titleStyle()),
+            SizedBox(
+              width: 5,
+            ),
             Text('$feels_like', style: StilOfText().valueStlye())
           ],
-        )
+        ),
       ],
     );
   }

@@ -14,10 +14,13 @@ class BackGroundDecoration {
 
 class StilOfText {
   TextStyle titleStyle() {
-    return TextStyle(fontWeight: FontWeight.bold, fontSize: 30);
+    return TextStyle(
+      fontWeight: FontWeight.bold,
+      fontSize: 25,
+    );
   }
 
   TextStyle valueStlye() {
-    return TextStyle(fontSize: 25);
+    return TextStyle(fontSize: 18, fontStyle: FontStyle.italic);
   }
 }
