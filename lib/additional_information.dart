@@ -11,66 +11,68 @@ class AdditionalInformation {
   AdditionalInformation(
       {this.wind, this.humidity, this.pressure, this.feels_like});
 
-  Column Ekbilgiler() {
-    return Column(
-      children: [
-        SizedBox(
-          height: 50,
-        ),
-        Text(
-          'Additional Information :',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-            decoration: TextDecoration.underline,
+  Container Ekbilgiler() {
+    return Container(
+      child: Column(
+        children: [
+          SizedBox(
+            height: 50,
           ),
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Wind ',
-              style: StilOfText().titleStyle(),
+          Text(
+            'Additional Information :',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 30,
+              decoration: TextDecoration.underline,
             ),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              '${wind?.round()}',
-              style: StilOfText().valueStlye(),
-            ),
-            SizedBox(
-              width: 15,
-            ),
-            Text(
-              'Pressure ',
-              style: StilOfText().titleStyle(),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            Text('$pressure', style: StilOfText().valueStlye()),
-          ],
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Humditiy ', style: StilOfText().titleStyle()),
-            SizedBox(
-              width: 5,
-            ),
-            Text('$humidity', style: StilOfText().valueStlye()),
-            Text('Feels Like ', style: StilOfText().titleStyle()),
-            SizedBox(
-              width: 5,
-            ),
-            Text('$feels_like', style: StilOfText().valueStlye())
-          ],
-        ),
-      ],
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Wind ',
+                style: StilOfText().titleStyle(),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                '${wind?.round()}',
+                style: StilOfText().valueStlye(),
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                'Pressure ',
+                style: StilOfText().titleStyle(),
+              ),
+              SizedBox(
+                width: 5,
+              ),
+              Text('$pressure', style: StilOfText().valueStlye()),
+            ],
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Humditiy ', style: StilOfText().titleStyle()),
+              SizedBox(
+                width: 5,
+              ),
+              Text('$humidity', style: StilOfText().valueStlye()),
+              Text('Feels Like ', style: StilOfText().titleStyle()),
+              SizedBox(
+                width: 5,
+              ),
+              Text('$feels_like', style: StilOfText().valueStlye())
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
