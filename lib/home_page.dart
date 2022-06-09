@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:weatherapp/search_page.dart';
 
@@ -25,9 +26,20 @@ class _HomePageState extends State<HomePage> {
   int? humidity;
   int? pressure;
   double? feels_like;
+  String weather_icon = '01d';
+  late Position position;
+
+  Future<void> getDevicePosition() async {
+    position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.low);
+    response = await http.get(
+        'https://api.openweathermap.org/data/2.5/weather?lat=${position.latitude}&lon=${position.longitude}&appid=04643ff1c678061b7bc3881ccafbe63a&units=metric');
+    sehir = jsonDecode(utf8.decode(response.bodyBytes))['name'];
+    getData(sehir);
+  }
 
   @override
-  Future<void> getData() async {
+  Future<void> getData(String sehir) async {
     response = await http.get(
         'https://api.openweathermap.org/data/2.5/weather?q=$sehir&appid=04643ff1c678061b7bc3881ccafbe63a&units=metric');
     sicaklik = jsonDecode(response.body)['main']['temp'];
@@ -37,20 +49,21 @@ class _HomePageState extends State<HomePage> {
     humidity = jsonDecode(response.body)['main']['humidity'];
     pressure = jsonDecode(response.body)['main']['pressure'];
     feels_like = jsonDecode(response.body)['main']['feels_like'];
+    weather_icon = jsonDecode(response.body)['weather'][0]['icon'];
   }
 
   @override
   void initState() {
+    getDevicePosition();
     super.initState();
-    getData();
   }
 
   @override
   Widget build(BuildContext context) {
     setState(() {});
     return Container(
-        decoration: BackGroundDecoration(resim: 'c').getBackGround(),
-        child: feels_like == null
+        decoration: BackGroundDecoration(resim: weather_icon).getBackGround(),
+        child: sehir == null
             ? Center(
                 child: SpinKitRotatingCircle(
                   color: Colors.white,
@@ -66,6 +79,12 @@ class _HomePageState extends State<HomePage> {
                       Text(
                         '${sicaklik.round()}°C',
                         style: TextStyle(
+                          shadows: [
+                            Shadow(
+                                color: Colors.black38,
+                                blurRadius: 5,
+                                offset: Offset(-4, 4))
+                          ],
                           fontWeight: FontWeight.bold,
                           fontSize: 50,
                         ),
@@ -76,6 +95,12 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             '$sehir'.capitalize(),
                             style: TextStyle(
+                              shadows: [
+                                Shadow(
+                                    color: Colors.black38,
+                                    blurRadius: 5,
+                                    offset: Offset(-4, 4))
+                              ],
                               fontWeight: FontWeight.bold,
                               fontSize: 35,
                             ),
@@ -94,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                               );
                               setState(() {
                                 sehir = sehir;
-                                getData();
+                                getData(sehir);
                               });
                             },
                           )
