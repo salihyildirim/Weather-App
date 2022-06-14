@@ -28,10 +28,15 @@ class _HomePageState extends State<HomePage> {
   double? feels_like;
   String weather_icon = '01d';
   late Position position;
+  String weather_main = '';
 
   Future<void> getDevicePosition() async {
-    position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low);
+    try {
+      position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.low);
+    } catch (e) {
+      print('Oluşan Hata : $e');
+    }
     response = await http.get(
         'https://api.openweathermap.org/data/2.5/weather?lat=${position.latitude}&lon=${position.longitude}&appid=04643ff1c678061b7bc3881ccafbe63a&units=metric');
     sehir = jsonDecode(utf8.decode(response.bodyBytes))['name'];
@@ -50,6 +55,7 @@ class _HomePageState extends State<HomePage> {
     pressure = jsonDecode(response.body)['main']['pressure'];
     feels_like = jsonDecode(response.body)['main']['feels_like'];
     weather_icon = jsonDecode(response.body)['weather'][0]['icon'];
+    weather_main = jsonDecode(response.body)['weather'][0]['main'];
   }
 
   @override
@@ -60,7 +66,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    setState(() {});
     return Container(
         decoration: BackGroundDecoration(resim: weather_icon).getBackGround(),
         child: sehir == null
@@ -125,6 +130,13 @@ class _HomePageState extends State<HomePage> {
                           )
                         ],
                       ),
+                      Container(
+                        width: 60,
+                        height: 60,
+                        child: Image.network(
+                            'http://openweathermap.org/img/wn/${weather_icon}@2x.png'),
+                      ),
+                      Text('$weather_main'),
                       AdditionalInformation(
                               wind: wind,
                               pressure: pressure,
