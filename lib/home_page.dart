@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:weatherapp/search_page.dart';
 
 import 'additional_information.dart';
@@ -29,6 +30,17 @@ class _HomePageState extends State<HomePage> {
   String weather_icon = '01d';
   late Position position;
   String weather_main = '';
+  var date_time;
+  DateTime? t;
+  List<String> Days = [
+    "Pazartesi",
+    "Salı",
+    "Çarşamba",
+    "Perşembe",
+    "Cuma",
+    "Cumartesi",
+    "Pazar"
+  ];
 
   Future<void> getDevicePosition() async {
     try {
@@ -56,6 +68,9 @@ class _HomePageState extends State<HomePage> {
     feels_like = jsonDecode(response.body)['main']['feels_like'];
     weather_icon = jsonDecode(response.body)['weather'][0]['icon'];
     weather_main = jsonDecode(response.body)['weather'][0]['main'];
+    date_time = jsonDecode(response.body)['dt'];
+    date_time = DateTime.fromMicrosecondsSinceEpoch(date_time * 1000000);
+    date_time = DateFormat('yyyy-MM-dd').format(date_time);
   }
 
   @override
@@ -92,6 +107,19 @@ class _HomePageState extends State<HomePage> {
                           ],
                           fontWeight: FontWeight.bold,
                           fontSize: 50,
+                        ),
+                      ),
+                      Text(
+                        Days[DateTime.parse(date_time).weekday - 1].toString(),
+                        style: TextStyle(
+                          shadows: [
+                            Shadow(
+                                color: Colors.black38,
+                                blurRadius: 5,
+                                offset: Offset(-4, 4))
+                          ],
+                          fontWeight: FontWeight.w600,
+                          fontSize: 30,
                         ),
                       ),
                       Row(
