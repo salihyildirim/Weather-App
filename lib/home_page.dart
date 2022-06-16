@@ -19,7 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String sehir = 'Dallas';
+  String sehir = 'Sehir';
   double sicaklik = 20;
   var response;
   double? wind;
@@ -130,13 +130,28 @@ class _HomePageState extends State<HomePage> {
                           )
                         ],
                       ),
-                      Container(
-                        width: 60,
-                        height: 60,
+                      /*Card(
+                        color: Colors.transparent,
+                        child: Container(
+                          height: 140,
+                          width: 120,
+                          child: Column(
+                            children: [
+                              Image.network(
+                                'http://openweathermap.org/img/wn/${weather_icon}@2x.png',
+                              ),
+                              Text('$weather_main'),
+                            ],
+                          ),
+                        ),
+                      ),*/
+                      /*Container(
+                        width: 80,
+                        height: 80,
                         child: Image.network(
                             'http://openweathermap.org/img/wn/${weather_icon}@2x.png'),
                       ),
-                      Text('$weather_main'),
+                      Text('$weather_main'),*/
                       AdditionalInformation(
                               wind: wind,
                               pressure: pressure,

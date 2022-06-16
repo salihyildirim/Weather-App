@@ -56,21 +56,16 @@ class AdditionalInformation {
               Text('$pressure', style: StilOfText().valueStlye()),
             ],
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('Humditiy ', style: StilOfText().titleStyle()),
-              SizedBox(
-                width: 5,
-              ),
-              Text('$humidity', style: StilOfText().valueStlye()),
-              Text('Feels Like ', style: StilOfText().titleStyle()),
-              SizedBox(
-                width: 5,
-              ),
-              Text('$feels_like', style: StilOfText().valueStlye())
-            ],
+          Text('Humditiy ', style: StilOfText().titleStyle()),
+          SizedBox(
+            width: 5,
           ),
+          Text('$humidity', style: StilOfText().valueStlye()),
+          Text('Feels Like ', style: StilOfText().titleStyle()),
+          SizedBox(
+            width: 5,
+          ),
+          Text('$feels_like', style: StilOfText().valueStlye()),
         ],
       ),
     );
